@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<style>
+  body{
+    background-color: dimgrey;
+  }
+  #entrante{
+    width: auto;
+    height: auto;
+    background-color: darkgrey;
+  }
+table,th,td {
+  border : 1px solid black;
+  border-collapse: collapse;
+  background-color: darkgrey;
+  width: 100%;
+}
+
+
+th,td {
+  padding: 2px;
+}
+</style>
+<body onload="correoE()">
+<div id="entrante">
+  <h1>Correo entrante</h1>
+</div>
+
+<br><br>
+<table id="demo"></table>
+
+<script>
+function correoE() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      myFunction(this);
+    }
+  };
+  xhttp.open("GET", "prueba.xml", true);
+  xhttp.send();
+}
+function myFunction(xml) {
+  var i;
+  var xmlDoc = xml.responseXML;
+  var table="<tr><th>from:</th><th>Titulo</th><th>hola</th></tr>";
+  var x = xmlDoc.getElementsByTagName("correo");
+  setTimeout(() => {
+    for (i = 0; i <x.length; i++) { 
+    table += "<tr><td>" +
+    x[i].getElementsByTagName("from")[0].childNodes[0].nodeValue +
+    "</td><td>" +
+      +
+    x[i].getElementsByTagName("titulo")[0].childNodes[0].nodeValue +
+    "</td><td>" +
+    x[i].getElementsByTagName("TITLE")[0].childNodes[0].nodeValue +
+    "</td></tr>";
+    document.getElementById("demo").innerHTML = table;
+  }
+  }, 1000);
+ 
+ 
+}
+</script>
+
+</body>
+</html>
